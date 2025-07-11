@@ -16,12 +16,13 @@ public class BinaryTree<T extends Comparable<T>> {
         root = insert(root, value);
     }
 
-    public void delete(T value) {
+    public boolean delete(T value) {
         if (!exists(value)) {
-            return;
+            return false;
         }
 
         root = delete(root, value);
+        return true;
     }
 
     public void inOrder() {
@@ -91,8 +92,12 @@ public class BinaryTree<T extends Comparable<T>> {
     }
 
     private int getHeight(TreeNode<T> node) {
-        if (node == null) return -1;
-        return 1 + Math.max(getHeight(node.left), getHeight(node.right));
+        if (node == null) {
+            return -1;
+        }
+
+        int maxHeight = Math.max(getHeight(node.left), getHeight(node.right));
+        return 1 + maxHeight;
     }
 
     private TreeNode<T> buildBalancedNode(List<T> sorted, int start, int end) {
@@ -112,8 +117,7 @@ public class BinaryTree<T extends Comparable<T>> {
 
     private TreeNode<T> insert(TreeNode<T> node, T value) {
         if (node == null) {
-            node = new TreeNode<T>(value);
-            return node;
+            return new TreeNode<T>(value);
         }
 
         if (value.compareTo(node.value) < 0) {
@@ -198,8 +202,9 @@ public class BinaryTree<T extends Comparable<T>> {
     }
 
     private TreeNode<T> delete(TreeNode<T> node, T value) {
-        if (node == null)
+        if (node == null) {
             return null;
+        }
 
         if (value.compareTo(node.value) < 0) {
             node.left = delete(node.left, value);
