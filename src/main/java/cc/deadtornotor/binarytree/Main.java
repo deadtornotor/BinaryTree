@@ -7,8 +7,15 @@ import java.util.Scanner;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
-    static BinaryTree<Integer> tree = new BinaryTree();
+    static BinaryTree<Integer> tree = new BinaryTree<Integer>();
     static Random random = new Random();
+
+    private static final int MAX_VALUE = 500;
+    private static final String ANSI_RED = "\u001B[31m";
+    private static final String ANSI_GREEN = "\u001B[32m";
+    private static final String ANSI_YELLOW = "\u001B[33m";
+    private static final String ANSI_BLUE = "\u001B[34m";
+    private static final String ANSI_RESET = "\u001B[0m";
 
     public static void main(String[] args) {
         Map<Integer, Runnable> menu = new HashMap<>();
@@ -25,6 +32,7 @@ public class Main {
         menu.put(10, Main::getDepth);
         menu.put(11, Main::countNodes);
         menu.put(12, Main::resetTree);
+        menu.put(13, Main::summary);
 
         while (true) {
             System.out.println("\n--- Binary Tree Menu ---");
@@ -40,6 +48,7 @@ public class Main {
             System.out.println("10. Get depth of value");
             System.out.println("11. Count nodes");
             System.out.println("12. Reset tree");
+            System.out.println("13. Function summary");
             System.out.println("0. Exit");
 
             System.out.print("Choose option: ");
@@ -101,25 +110,20 @@ public class Main {
     private static void deleteValue() {
         System.out.print("Enter value to delete: ");
         int val = scanner.nextInt();
-        if (!tree.delete(val)) {
-            System.out.println("Could not delete: " + val);
-            return;
-        }
-        System.out.println("Deleted: " + val);
+        tree.delete(val);
+        System.out.println("Deleted (if existed): " + val);
     }
 
     private static void getHeight() {
-        System.out.println("Tree height: " + tree.getHeight());
+        System.out.println("Tree height: " + tree.height());
     }
 
     private static void getDepth() {
         System.out.print("Enter value to find depth: ");
         int val = scanner.nextInt();
-        int depth = tree.getDepth(val);
-        if (depth == -1)
-            System.out.println("Not found.");
-        else
-            System.out.println("Depth: " + depth);
+        int depth = tree.depth(val);
+        if (depth == -1) System.out.println("Not found.");
+        else System.out.println("Depth: " + depth);
     }
 
     private static void countNodes() {
@@ -129,5 +133,89 @@ public class Main {
     private static void resetTree() {
         tree = new BinaryTree<>();
         System.out.println("Tree reset.");
+    }
+
+    private static void summary() {
+        BinaryTree<Integer> tree = new BinaryTree<Integer>();
+        Random random = new Random();
+        
+        // Random node count
+        int nodeCount = 10;
+        System.out.println(ANSI_YELLOW + "Generating binary tree with " + nodeCount + " nodes" + ANSI_RESET);
+
+        // Insert random values
+        System.out.print(ANSI_BLUE + "Inserting values: " + ANSI_RESET);
+        tree.insert(random.nextInt(100) + 50);
+        for (int i = 0; i < nodeCount - 1; i++) {
+            int value = random.nextInt(MAX_VALUE);
+            System.out.print(ANSI_GREEN + value + " " + ANSI_RESET);
+            tree.insert(value);
+        }
+        System.out.println();
+
+        // Initial tree stats
+        System.out.println(ANSI_YELLOW + "\n=== Initial Tree Stats ===" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "In-order traversal:" + ANSI_RESET);
+        tree.inOrder();
+        System.out.println(ANSI_BLUE + "\nTree structure:" + ANSI_RESET);
+        tree.printTree();
+        System.out.println(ANSI_BLUE + "Height: " + tree.height() + ANSI_RESET);
+
+        // Balance the tree
+        System.out.println(ANSI_RED + "\nBalancing the tree" + ANSI_RESET);
+        tree.balance();
+        System.out.println(ANSI_BLUE + "Balanced tree structure:" + ANSI_RESET);
+        tree.printTree();
+        System.out.println(ANSI_BLUE + "Height after balancing: " + tree.height() + ANSI_RESET);
+
+        // Multiple random searches
+        int searchCount = 10;
+        System.out.println(ANSI_YELLOW + "\nPerforming " + searchCount + " random searches" + ANSI_RESET);
+        for (int i = 0; i < searchCount; i++) {
+            int searchKey = random.nextInt(MAX_VALUE);
+            System.out.println(ANSI_GREEN + "Searching for " + searchKey + ": " + 
+                (tree.exists(searchKey) ? "Found" : "Not found") + ANSI_RESET);
+        }
+
+        // Multiple random duplicate insertions
+        int insertCount = 5;
+        System.out.println(ANSI_YELLOW + "\nInserting " + insertCount + " random duplicate values" + ANSI_RESET);
+        for (int i = 0; i < insertCount; i++) {
+            int randomValue = random.nextInt(MAX_VALUE);
+            System.out.print(ANSI_GREEN + randomValue + " " + ANSI_RESET);
+            tree.insert(randomValue);
+        }
+        System.out.println();
+        System.out.println(ANSI_BLUE + "In-order after duplicate insertions:" + ANSI_RESET);
+        tree.inOrder();
+
+        // Show min and max
+        System.out.println(ANSI_YELLOW + "\nTree Extremes" + ANSI_RESET);
+        System.out.println(ANSI_GREEN + "Minimum value: " + tree.minValue() + ANSI_RESET);
+        System.out.println(ANSI_GREEN + "Maximum value: " + tree.maxValue() + ANSI_RESET);
+
+        // Multiple random deletions
+        int deleteCount = 5;
+        System.out.println(ANSI_YELLOW + "\nPerforming " + deleteCount + " random deletions" + ANSI_RESET);
+        for (int i = 0; i < deleteCount; i++) {
+            int deleteKey = random.nextInt(MAX_VALUE);
+            System.out.println(ANSI_RED + "Deleting key " + deleteKey + ANSI_RESET);
+            tree.delete(deleteKey);
+        }
+        System.out.println(ANSI_BLUE + "In-order after deletions:" + ANSI_RESET);
+        tree.inOrder();
+
+        // Try deleting a non-existent key
+        int nonExistentKey = MAX_VALUE + random.nextInt(100);
+        System.out.println(ANSI_YELLOW + "\nAttempting to delete non-existent key " + nonExistentKey + ANSI_RESET);
+        tree.delete(nonExistentKey);
+        System.out.println(ANSI_BLUE + "In-order after attempt:" + ANSI_RESET);
+        tree.inOrder();
+
+        // Final tree stats
+        System.out.println(ANSI_YELLOW + "\n=== Final Tree Stats ===" + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "Final height: " + tree.height() + ANSI_RESET);
+        System.out.println(ANSI_BLUE + "Final structure:" + ANSI_RESET);
+        tree.printTree();
     }
 }
