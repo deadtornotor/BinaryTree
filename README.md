@@ -1,8 +1,8 @@
+> The binary tree has no standard implementation in Java so this is to showcase a simple implementation
+
 # Binary Tree
 
 This is a useless binary tree implementation for Java :3
-
-> !The binary tree has no standard implementation in Java
 
 A binary tree is a data structure where every node
 has **at most 2 children** - often referred to as a left and a right node.
