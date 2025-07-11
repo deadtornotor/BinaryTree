@@ -1,9 +1,12 @@
 package cc.deadtornotor.binarytree;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
+import java.util.function.Consumer;
 
-public class BinaryTree<T extends Comparable<T>> {
+public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
     TreeNode<T> root;
 
     public BinaryTree() {
@@ -29,7 +32,11 @@ public class BinaryTree<T extends Comparable<T>> {
     }
 
     public boolean exists(T value) {
-        return exists(root, value);
+        return get(root, value) != null;
+    }
+
+    public T get(T value) {
+        return get(root, value);
     }
 
     public void printTree() {
@@ -41,15 +48,15 @@ public class BinaryTree<T extends Comparable<T>> {
 
         inOrder(root, sorted);
 
-        root = buildBalancedNode(sorted, 0, sorted.size() -1);
+        root = buildBalancedNode(sorted, 0, sorted.size() - 1);
     }
 
     public T minValue() {
-        return value(root,true);
+        return value(root, true);
     }
 
     public T maxValue() {
-        return value(root,false);
+        return value(root, false);
     }
 
     public int height() {
@@ -62,6 +69,46 @@ public class BinaryTree<T extends Comparable<T>> {
 
     public int countNodes() {
         return countNodes(root);
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new Iterator<T>() {
+            private final Stack<TreeNode<T>> stack = new Stack<>();
+            private final TreeNode<T> current = root;
+
+            {
+                pushLeft(current);
+            }
+
+            private void pushLeft(TreeNode<T> node) {
+                while (node != null) {
+                    stack.push(node);
+                    node = node.left;
+                }
+            }
+
+            @Override
+            public boolean hasNext() {
+                return !stack.isEmpty();
+            }
+
+            @Override
+            public T next() {
+                TreeNode<T> node = stack.pop();
+                T item = node.value;
+                if (node.right != null) {
+                    pushLeft(node.right);
+                }
+                return item;
+            }
+        };
+    }
+
+    public void forEach(Consumer<? super T> action) {
+        for (T item : this) {
+            action.accept(item);
+        }
     }
 
     private int countNodes(TreeNode<T> node) {
@@ -119,13 +166,12 @@ public class BinaryTree<T extends Comparable<T>> {
 
         if (value.compareTo(node.value) < 0) {
             node.left = insert(node.left, value);
-        } else if(value.compareTo(node.value) > 0) {
+        } else if (value.compareTo(node.value) > 0) {
             node.right = insert(node.right, value);
         }
 
         return node;
     }
-
 
     private void inOrder(TreeNode<T> node, List<T> set) {
         if (node == null) {
@@ -147,31 +193,31 @@ public class BinaryTree<T extends Comparable<T>> {
         inOrder(node.right);
     }
 
-
-    private boolean exists(TreeNode<T> node, T value) {
+    private T get(TreeNode<T> node, T value) {
         if (node == null) {
-            return false;
+            return null;
         }
 
-        if(value.equals(node.value)) {
-            return true;
+        if (value.equals(node.value)) {
+            return node.value;
         }
 
         if (value.compareTo(node.value) < 0) {
-            return exists(node.left, value);
+            return get(node.left, value);
         } else {
-            return exists(node.right, value);
+            return get(node.right, value);
         }
     }
 
     private void printTree(TreeNode<T> node, String prefix, boolean isTail) {
-        if (node == null) return;
+        if (node == null)
+            return;
 
         if (node.right != null) {
             printTree(node.right, prefix + (isTail ? "│      " : "       "), false);
         }
 
-        System.out.println(prefix + (isTail ? "└───── " : "┌───── " ) + node.value);
+        System.out.println(prefix + (isTail ? "└───── " : "┌───── ") + node.value);
 
         if (node.left != null) {
             printTree(node.left, prefix + (isTail ? "       " : "│      "), true);
@@ -214,11 +260,9 @@ public class BinaryTree<T extends Comparable<T>> {
         // if one or both child nodes are null
         if (node.left == null) {
             return node.right;
-        }
-        else if (node.right == null) {
+        } else if (node.right == null) {
             return node.left;
         }
-
 
         T minValue = findMin(node.right);
         node.value = minValue;
