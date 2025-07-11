@@ -78,17 +78,9 @@ public class TreeNode<T> {
 
 ## Design
 
-### Recursion
-
-This tree uses recursion for basically all operations that require traversing the tree
-
-### Thread savety
-
-It is not thread save, as it does not utilize any locking of nodes when editing or reading
-
-### Requires a Comparable<T>
-
-The tree requires its values to extend the Comparable class to sort the values
+- This tree uses recursion for basically all operations that require traversing the tree
+- It is not thread save, as it does not utilize any locking of nodes when editing or reading
+- The tree requires its values to extend the Comparable class to sort the values
 
 ## Binary Tree vs Array / List
 
