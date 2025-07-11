@@ -93,7 +93,7 @@ public class BinaryTree<T extends Comparable<T>> {
             return -1;
         }
 
-        int maxHeight = Math.max(getHeight(node.left), getHeight(node.right));
+        int maxHeight = Math.max(height(node.left), height(node.right));
         return 1 + maxHeight;
     }
 
