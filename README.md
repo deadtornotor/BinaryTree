@@ -39,9 +39,9 @@ It requires a Comparable T value which it uses to order the nodes
 | T minValue()         | Gets the minimum value of the tree                                |
 | T maxValue()         | Gets the maximum value of the tree                                |
 | bool delete(T value) | Delete an element from the binary tree                            |
-| int getHeight() | Returns the distance of the root to the lowest node               |
-| int getDepth(T value) | Returns the distance between the root and a specific value        |
-| int countNodes() | Returns the number of nodes int the tree                          |
+| int height()         | Returns the distance of the root to the lowest node               |
+| int depth(T value)   | Returns the distance between the root and a specific value        |
+| int countNodes()     | Returns the number of nodes int the tree                          |
 
 This is only a small subset of what functions a binary tree can have.
 

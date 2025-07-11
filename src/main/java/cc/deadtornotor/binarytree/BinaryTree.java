@@ -16,13 +16,12 @@ public class BinaryTree<T extends Comparable<T>> {
         root = insert(root, value);
     }
 
-    public boolean delete(T value) {
+    public void delete(T value) {
         if (!exists(value)) {
-            return false;
+            return;
         }
 
         root = delete(root, value);
-        return true;
     }
 
     public void inOrder() {
@@ -55,12 +54,12 @@ public class BinaryTree<T extends Comparable<T>> {
         return value(root,false);
     }
 
-    public int getHeight() {
-        return getHeight(root);
+    public int height() {
+        return height(root);
     }
 
-    public int getDepth(T value) {
-        return getDepth(root, value, 0);
+    public int depth(T value) {
+        return depth(root, value, 0);
     }
 
     public int countNodes() {
@@ -75,7 +74,7 @@ public class BinaryTree<T extends Comparable<T>> {
         return 1 + countNodes(node.left) + countNodes(node.right);
     }
 
-    private int getDepth(TreeNode<T> node, T value, int depth) {
+    private int depth(TreeNode<T> node, T value, int depth) {
         if (node == null) {
             return -1;
         }
@@ -85,13 +84,13 @@ public class BinaryTree<T extends Comparable<T>> {
         }
 
         if (value.compareTo(node.value) < 0) {
-            return getDepth(node.left, value, depth + 1);
+            return depth(node.left, value, depth + 1);
         }
 
-        return getDepth(node.right, value, depth + 1);
+        return depth(node.right, value, depth + 1);
     }
 
-    private int getHeight(TreeNode<T> node) {
+    private int height(TreeNode<T> node) {
         if (node == null) {
             return -1;
         }
