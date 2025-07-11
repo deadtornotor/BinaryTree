@@ -1,7 +1,5 @@
 package cc.deadtornotor.binarytree;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -9,6 +7,8 @@ public class Main {
     static Scanner scanner = new Scanner(System.in);
     static BinaryTree<Integer> tree = new BinaryTree<Integer>();
     static Random random = new Random();
+    static Menu menu = new Menu("Binary Tree Menu");
+    static boolean exit = false;
 
     private static final int MAX_VALUE = 500;
     private static final String ANSI_RED = "\u001B[31m";
@@ -18,54 +18,40 @@ public class Main {
     private static final String ANSI_RESET = "\u001B[0m";
 
     public static void main(String[] args) {
-        Map<Integer, Runnable> menu = new HashMap<>();
-
-        menu.put(1, Main::insertRandom);
-        menu.put(2, Main::inOrder);
-        menu.put(3, Main::checkExists);
-        menu.put(4, Main::printTree);
-        menu.put(5, Main::balanceTree);
-        menu.put(6, Main::minValue);
-        menu.put(7, Main::maxValue);
-        menu.put(8, Main::deleteValue);
-        menu.put(9, Main::getHeight);
-        menu.put(10, Main::getDepth);
-        menu.put(11, Main::countNodes);
-        menu.put(12, Main::resetTree);
-        menu.put(13, Main::summary);
+        menu.add(1, "Insert random values", Main::insertRandom);
+        menu.add(2, "In-order traversal", Main::inOrder);
+        menu.add(3, "Check if value exists", Main::checkExists);
+        menu.add(4, "Pretty print tree", Main::printTree);
+        menu.add(5, "Balance tree", Main::balanceTree);
+        menu.add(6, "Find min value", Main::minValue);
+        menu.add(7, "Find max value", Main::maxValue);
+        menu.add(8, "Delete a value", Main::deleteValue);
+        menu.add(9, "Get height", Main::getHeight);
+        menu.add(10, "Get depth of value", Main::getDepth);
+        menu.add(11, "Count nodes", Main::countNodes);
+        menu.add(12, "Reset tree", Main::resetTree);
+        menu.add(13, "Function summary", Main::summary);
+        menu.add(0, "Exit", Main::exit);
 
         while (true) {
-            System.out.println("\n--- Binary Tree Menu ---");
-            System.out.println("1. Insert random values");
-            System.out.println("2. In-order traversal");
-            System.out.println("3. Check if value exists");
-            System.out.println("4. Pretty print tree");
-            System.out.println("5. Balance tree");
-            System.out.println("6. Find min value");
-            System.out.println("7. Find max value");
-            System.out.println("8. Delete a value");
-            System.out.println("9. Get height");
-            System.out.println("10. Get depth of value");
-            System.out.println("11. Count nodes");
-            System.out.println("12. Reset tree");
-            System.out.println("13. Function summary");
-            System.out.println("0. Exit");
+            menu.print();
 
-            System.out.print("Choose option: ");
+            System.out.print(System.getProperty("user.name") + "@binarytree ~/ $ ");
             int choice = scanner.nextInt();
 
-            if (choice == 0) {
-                System.out.println("Exiting.");
-                break;
-            }
-
-            Runnable action = menu.get(choice);
-            if (action != null) {
-                action.run();
-            } else {
+            if (!menu.run(choice)) {
                 System.out.println("Invalid choice.");
             }
+            
+            if (exit) {
+                System.out.println("Exiting...");
+                break;
+            }
         }
+    }
+
+    private static void exit() {
+        exit = true;
     }
 
     private static void insertRandom() {
