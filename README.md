@@ -38,7 +38,7 @@ It requires a Comparable T value which it uses to order the nodes
 | void balance()       | Balances the tree to optimise the depth and thereby traversing it |
 | T minValue()         | Gets the minimum value of the tree                                |
 | T maxValue()         | Gets the maximum value of the tree                                |
-| void delete(T value) | Delete an element from the binary tree                            |
+| bool delete(T value) | Delete an element from the binary tree                            |
 | int getHeight() | Returns the distance of the root to the lowest node               |
 | int getDepth(T value) | Returns the distance between the root and a specific value        |
 | int countNodes() | Returns the number of nodes int the tree                          |

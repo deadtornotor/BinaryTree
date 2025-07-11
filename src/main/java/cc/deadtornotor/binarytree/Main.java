@@ -101,8 +101,11 @@ public class Main {
     private static void deleteValue() {
         System.out.print("Enter value to delete: ");
         int val = scanner.nextInt();
-        tree.delete(val);
-        System.out.println("Deleted (if existed): " + val);
+        if (!tree.delete(val)) {
+            System.out.println("Could not delete: " + val);
+            return;
+        }
+        System.out.println("Deleted: " + val);
     }
 
     private static void getHeight() {
@@ -113,8 +116,10 @@ public class Main {
         System.out.print("Enter value to find depth: ");
         int val = scanner.nextInt();
         int depth = tree.getDepth(val);
-        if (depth == -1) System.out.println("Not found.");
-        else System.out.println("Depth: " + depth);
+        if (depth == -1)
+            System.out.println("Not found.");
+        else
+            System.out.println("Depth: " + depth);
     }
 
     private static void countNodes() {
