@@ -21,19 +21,6 @@ class MenuItem implements Comparable<MenuItem>{
     public int compareTo(MenuItem menuItem) {
         return Integer.compare(this.index, menuItem.index);
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this  == obj) {
-            return true;
-        }
-        else if (!(obj instanceof MenuItem)) {
-            return false;
-        }
-        MenuItem other = (MenuItem) obj;
-
-        return this.index == other.index;
-    }
 }
 
 public class Menu {

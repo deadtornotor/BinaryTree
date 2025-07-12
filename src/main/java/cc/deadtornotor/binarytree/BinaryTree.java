@@ -124,7 +124,7 @@ public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
             return -1;
         }
 
-        if (value.equals(node.value)) {
+        if (value.compareTo(node.value) == 0) {
             return depth;
         }
 
@@ -198,7 +198,7 @@ public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
             return null;
         }
 
-        if (value.equals(node.value)) {
+        if (value.compareTo(node.value) == 0) {
             return node.value;
         }
 
