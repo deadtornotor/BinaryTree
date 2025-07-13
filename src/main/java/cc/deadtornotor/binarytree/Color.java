@@ -1,6 +1,6 @@
 package cc.deadtornotor.binarytree;
 
-public final class Color {
+public class Color {
     private static final String ESC = "\u001B[";
     public static final String RESET = ESC + "0m";
 
@@ -60,11 +60,6 @@ public final class Color {
     }
 
     public String getCode() {
-        return code;
-    }
-
-    @Override
-    public String toString() {
         return code;
     }
 }

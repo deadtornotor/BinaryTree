@@ -1,5 +1,7 @@
 package cc.deadtornotor.binarytree;
 
+import java.util.Scanner;
+
 class MenuItem implements Comparable<MenuItem>{
     public int index;
     public String name;
@@ -25,15 +27,18 @@ public class Menu {
     private final BinaryTree<MenuItem> menuTree = new BinaryTree<MenuItem>();
     private final String name;
     private final CLI cli;
+    private boolean loop = false;
+    static Scanner sc = new Scanner(System.in);
 
     public Menu(String name, CLI cli) {
         this.name = name;
         this.cli = cli;
+
+        add(0, "Exit", this::stop);
     }
 
     public Menu(String name) {
-        this.name = name;
-        this.cli = new CLI();
+        this(name, new CLI());
     }
 
     public boolean add(int index, String name, Runnable runnable) {
@@ -44,6 +49,26 @@ public class Menu {
         MenuItem item = new MenuItem(index, name, runnable);
         menuTree.insert(item);
         return true;
+    }
+
+    public void loop() {
+        loop = true;
+
+        while (loop) {
+            this.print();
+
+            int choice = sc.nextInt();
+
+            if (!this.run(choice)) {
+                cli.error("Invalid choice.");
+            }
+        }
+
+        cli.info("Exiting...");
+    }
+
+    public void stop() {
+        loop = false;
     }
 
     public void print() {

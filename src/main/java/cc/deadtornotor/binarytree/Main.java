@@ -32,26 +32,8 @@ public class Main {
         menu.add(11, "Count nodes", Main::countNodes);
         menu.add(12, "Reset tree", Main::resetTree);
         menu.add(13, "Function summary", Main::summary);
-        menu.add(0, "Exit", Main::exit);
 
-        while (true) {
-            menu.print();
-
-            int choice = scanner.nextInt();
-
-            if (!menu.run(choice)) {
-                cli.error("Invalid choice.");
-            }
-
-            if (exit) {
-                cli.info("Exiting...");
-                break;
-            }
-        }
-    }
-
-    private static void exit() {
-        exit = true;
+        menu.loop();
     }
 
     private static void insertRandom() {
