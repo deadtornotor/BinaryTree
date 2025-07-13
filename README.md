@@ -32,7 +32,6 @@ It requires a Comparable T value which it uses to order the nodes
 | Function             | Purpose                                                           |
 |----------------------|-------------------------------------------------------------------|
 | void insert(T value) | Insert a value into the binary tree                               |
-| void inOrder()       | Prints out all node values in order                               |
 | bool exists(T value) | Checks if the value exists                                        |
 | void printTree()     | Prints a pretty tree of the values                                |
 | void balance()       | Balances the tree to optimise the depth and thereby traversing it |
