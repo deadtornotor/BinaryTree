@@ -50,6 +50,16 @@ public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
         dirty = false;
     }
 
+    private void inOrder(TreeNode<T> node, List<T> set) {
+        if (node == null) {
+            return;
+        }
+
+        inOrder(node.left, set);
+        set.add(node.value);
+        inOrder(node.right, set);
+    }
+
     public T minValue() {
         return value(root, true);
     }
@@ -175,40 +185,6 @@ public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
 
     public boolean isDirty() {
         return dirty;
-    }
-
-    public void inOrder() {
-        inOrder(true);
-    }
-
-    public void inOrder(boolean print) {
-        inOrder(root, print);
-
-        if (print) {
-            System.out.println();
-        }
-    }
-
-    private void inOrder(TreeNode<T> node, List<T> set) {
-        if (node == null) {
-            return;
-        }
-
-        inOrder(node.left, set);
-        set.add(node.value);
-        inOrder(node.right, set);
-    }
-
-    private void inOrder(TreeNode<T> node, boolean print) {
-        if (node == null) {
-            return;
-        }
-
-        inOrder(node.left, print);
-        if (print) {
-            System.out.print(node.value + " ");
-        }
-        inOrder(node.right, print);
     }
 
     private T get(TreeNode<T> node, T value) {
