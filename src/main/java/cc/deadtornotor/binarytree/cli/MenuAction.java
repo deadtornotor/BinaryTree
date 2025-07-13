@@ -42,26 +42,15 @@ public class MenuAction {
 
     private Object[] promptForArguments(MethodParameter[] parameters) {
         Object[] args = new Object[parameters.length];
-        Scanner scanner = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         for (int i = 0; i < parameters.length; i++) {
             Class<?> type = parameters[i].parameterType();
             String paramName = parameters[i].parameterName();
-            cli.println("Enter " + paramName + " (" + type.getSimpleName() + ")");
-            cli.printInputPrefix();
-            String input = scanner.nextLine();
 
-            if (type == int.class || type == Integer.class) {
-                args[i] = Integer.parseInt(input);
-            } else if (type == double.class || type == Double.class) {
-                args[i] = Double.parseDouble(input);
-            } else if (type == boolean.class || type == Boolean.class) {
-                args[i] = Boolean.parseBoolean(input);
-            } else if (type == String.class) {
-                args[i] = input;
-            } else {
-                throw new UnsupportedOperationException("Unsupported parameter type: " + type);
-            }
+            args[i] = cli.input(type, () -> {
+                cli.println("Enter " + paramName + " (" + type.getSimpleName() + ")");
+            });
         }
 
         return args;

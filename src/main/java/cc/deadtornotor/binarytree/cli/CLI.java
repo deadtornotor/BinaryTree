@@ -1,11 +1,13 @@
 package cc.deadtornotor.binarytree.cli;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class CLI {
     private final Color defaultColor;
     private final Color defaultBackgroundColor;
     private final Runnable inputPrefixPrinter;
+    private final Scanner sc = new Scanner(System.in);
 
     public CLI(Runnable inputPrefixPrinter, Color defaultColor, Color defaultBackgroundColor) {
         this.defaultColor = defaultColor;
@@ -177,5 +179,35 @@ public class CLI {
         println(border, borderColor, backgroundColor);
         println("     " + message + "     ", color, backgroundColor);
         println(border, borderColor, backgroundColor);
+    }
+
+    public Object input(Class<?> type) {
+        return input(type, null);
+    }
+
+    public Object input(Class<?> type, Runnable promptPrinter) {
+        while (true) {
+            if (promptPrinter != null) {
+                promptPrinter.run();
+            }
+            this.printInputPrefix();
+            String input = sc.nextLine();
+
+            try {
+                if (type == int.class || type == Integer.class) {
+                    return Integer.parseInt(input);
+                } else if (type == double.class || type == Double.class) {
+                    return Double.parseDouble(input);
+                } else if (type == boolean.class || type == Boolean.class) {
+                    return Boolean.parseBoolean(input);
+                } else if (type == String.class) {
+                    return input;
+                } else {
+                    throw new UnsupportedOperationException("Unsupported parameter type: " + type.getSimpleName());
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please try again.");
+            }
+        }
     }
 }

@@ -61,8 +61,7 @@ public class Menu {
             }
 
             this.print();
-
-            int choice = sc.nextInt();
+            int choice = (int) cli.input(int.class);
 
             if (!this.execute(choice)) {
                 cli.error("Invalid choice");
@@ -85,8 +84,6 @@ public class Menu {
         menuTree.forEach((menuItem) -> {
             cli.println("[" + menuItem.index + "] " + menuItem.action.name());
         });
-
-        cli.printInputPrefix();
     }
 
     public boolean execute(int index) {
