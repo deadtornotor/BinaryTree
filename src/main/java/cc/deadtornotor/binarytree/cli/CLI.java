@@ -1,5 +1,6 @@
 package cc.deadtornotor.binarytree.cli;
 
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -194,7 +195,9 @@ public class CLI {
             String input = sc.nextLine();
 
             try {
-                if (type == int.class || type == Integer.class) {
+                if (type == null) {
+                    return null;
+                } else if (type == int.class || type == Integer.class) {
                     return Integer.parseInt(input);
                 } else if (type == double.class || type == Double.class) {
                     return Double.parseDouble(input);
@@ -206,7 +209,7 @@ public class CLI {
                     throw new UnsupportedOperationException("Unsupported parameter type: " + type.getSimpleName());
                 }
             } catch (Exception e) {
-                System.out.println("Invalid input. Please try again.");
+                System.out.println("Invalid input. Please try again");
             }
         }
     }

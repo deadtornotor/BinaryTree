@@ -10,17 +10,19 @@ public class MenuAction {
     private final MethodParameter[] methodParameters;
     private final String methodName;
     private final CLI cli;
+    private final boolean askToContinue;
 
-    public MenuAction(CLI cli, String name, Object target, String methodName, MethodParameter... methodParameters) {
+    public MenuAction(CLI cli, String name, Object target, String methodName, boolean askToContinue, MethodParameter... methodParameters) {
         this.name = name;
         this.target = target;
         this.methodParameters = methodParameters;
         this.methodName = methodName;
         this.cli = cli;
+        this.askToContinue = askToContinue;
     }
 
-    public MenuAction(String name, Object target, String methodName, MethodParameter... methodParameters) {
-        this(new CLI(), name, target, methodName, methodParameters);
+    public MenuAction(String name, Object target, String methodName, boolean askToContinue, MethodParameter... methodParameters) {
+        this(new CLI(), name, target, methodName, askToContinue, methodParameters);
     }
 
     public String name() {
@@ -36,7 +38,13 @@ public class MenuAction {
             Object[] args = promptForArguments(methodParameters);
             method.invoke(target, args);
         } catch (Exception e) {
-            System.err.println("Error executing action: " + e.getMessage());
+            cli.error("Error executing action: " + e.getMessage());
+        }
+
+        if (askToContinue) {
+            cli.input(null, () -> {
+                cli.println("Press ENTER to continue");
+            });
         }
     }
 

@@ -35,7 +35,7 @@ public class Menu {
         this.name = name;
         this.cli = cli;
 
-        add(0, new MenuAction("Exit", this, "stop"));
+        add(0, new MenuAction("Exit", this, "stop", false));
     }
 
     public Menu(String name) {
