@@ -17,17 +17,17 @@ public class BenchmarkRunner {
             Benchmarkable structure = structureFactory.get();
 
             long start = System.nanoTime();
+            for (int val : data) {
+                structure.insert(val);
+            }
+            totalInsertTime += System.nanoTime() - start;
+
+            start = System.nanoTime();
             boolean warmup = structure.warmup();
             long warmupTime = System.nanoTime() - start;
             if (warmup) {
                 totalWarmupTime += warmupTime;
             }
-
-            start = System.nanoTime();
-            for (int val : data) {
-                structure.insert(val);
-            }
-            totalInsertTime += System.nanoTime() - start;
 
             int target = data.get(data.size() / 2);
             start = System.nanoTime();
