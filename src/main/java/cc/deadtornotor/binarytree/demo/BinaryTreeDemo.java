@@ -9,7 +9,7 @@ public class BinaryTreeDemo {
     private final CLI cli;
     private final Menu menu;
 
-    public BinaryTreeDemo(CLI cli) throws NoSuchMethodException {
+    public BinaryTreeDemo(CLI cli) {
         this.cli = cli;
         this.menu = new Menu("Binary Tree Demo", cli);
 
@@ -23,7 +23,7 @@ public class BinaryTreeDemo {
         );
     }
 
-    public BinaryTreeDemo() throws NoSuchMethodException {
+    public BinaryTreeDemo() {
         this(new CLI());
     }
 

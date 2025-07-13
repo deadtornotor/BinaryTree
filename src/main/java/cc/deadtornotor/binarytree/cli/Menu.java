@@ -79,6 +79,7 @@ public class Menu {
     public void print() {
         // Colored example, adjust as you like
 
+        cli.println();
         cli.borderedPrintln(name, Color.GREEN, null, Color.GREEN);
 
         menuTree.forEach((menuItem) -> {
