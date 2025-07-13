@@ -50,14 +50,8 @@ public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
         dirty = false;
     }
 
-    private void inOrder(TreeNode<T> node, List<T> set) {
-        if (node == null) {
-            return;
-        }
-
-        inOrder(node.left, set);
-        set.add(node.value);
-        inOrder(node.right, set);
+    public boolean isDirty() {
+        return dirty;
     }
 
     public T minValue() {
@@ -78,6 +72,12 @@ public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
 
     public int countNodes() {
         return countNodes(root);
+    }
+
+    public void forEach(Consumer<? super T> action) {
+        for (T item : this) {
+            action.accept(item);
+        }
     }
 
     @Override
@@ -114,10 +114,14 @@ public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
         };
     }
 
-    public void forEach(Consumer<? super T> action) {
-        for (T item : this) {
-            action.accept(item);
+    private void inOrder(TreeNode<T> node, List<T> set) {
+        if (node == null) {
+            return;
         }
+
+        inOrder(node.left, set);
+        set.add(node.value);
+        inOrder(node.right, set);
     }
 
     private int countNodes(TreeNode<T> node) {
@@ -181,10 +185,6 @@ public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
         }
 
         return node;
-    }
-
-    public boolean isDirty() {
-        return dirty;
     }
 
     private T get(TreeNode<T> node, T value) {
