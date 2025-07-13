@@ -32,7 +32,7 @@ public class MenuAction {
     public void execute() {
         try {
             Class<?>[] paramTypes = Arrays.stream(methodParameters)
-                    .map(MethodParameter::parameterType)
+                    .map(MethodParameter::type)
                     .toArray(Class<?>[]::new);
             Method method = target.getClass().getMethod(methodName, paramTypes);
             Object[] args = promptForArguments(methodParameters);
@@ -53,8 +53,8 @@ public class MenuAction {
         Scanner sc = new Scanner(System.in);
 
         for (int i = 0; i < parameters.length; i++) {
-            Class<?> type = parameters[i].parameterType();
-            String paramName = parameters[i].parameterName();
+            Class<?> type = parameters[i].type();
+            String paramName = parameters[i].name();
 
             args[i] = cli.input(type, () -> {
                 cli.println("Enter " + paramName + " (" + type.getSimpleName() + ")");
