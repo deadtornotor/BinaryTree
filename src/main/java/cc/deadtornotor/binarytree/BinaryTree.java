@@ -74,15 +74,23 @@ public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
         return countNodes(root);
     }
 
-    public void forEach(Consumer<? super T> action) {
-        for (T item : this) {
-            action.accept(item);
+    private void forEach(TreeNode<T> node, Consumer<? super T> action) {
+        if (node == null) {
+            return;
         }
+
+        forEach(node.left, action);
+        action.accept(node.value);
+        forEach(node.right, action);
+    }
+
+    public void forEach(Consumer<? super T> action) {
+        forEach(root, action); // Recursion faster than iterator
     }
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
+        return new Iterator<>() {
             private final Stack<TreeNode<T>> stack = new Stack<>();
             private final TreeNode<T> current = root;
 

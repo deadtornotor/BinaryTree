@@ -24,10 +24,8 @@ public class BinaryTreeAdapter implements Benchmarkable {
 
     @Override
     public boolean traverseInOrder() {
-        int dummy = 0;
-        for (Integer val : tree) {
-            dummy += val;
-        }
-        return dummy != 0;
+        final int[] dummy = {0};
+        tree.forEach(val -> dummy[0] += val);
+        return dummy[0] != 0;
     }
 }
