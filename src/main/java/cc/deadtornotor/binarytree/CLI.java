@@ -3,8 +3,6 @@ package cc.deadtornotor.binarytree;
 import java.util.Random;
 
 public class CLI {
-    private static final String RESET = "\u001B[0m";
-
     private final Color defaultColor;
     private final Color defaultBackgroundColor;
 
@@ -91,7 +89,7 @@ public class CLI {
             output.append(color.getCode()).append(c);
         }
 
-        output.append(RESET);
+        output.append(Color.RESET);
 
         if (newLine) {
             System.out.println(output);
@@ -115,7 +113,7 @@ public class CLI {
             output.append(backgroundColor.getCode());
         }
 
-        output.append(message).append(RESET);
+        output.append(message).append(Color.RESET);
 
         if (newLine) {
             System.out.println(output);
