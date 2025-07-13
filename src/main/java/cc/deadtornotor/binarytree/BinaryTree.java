@@ -1,5 +1,7 @@
 package cc.deadtornotor.binarytree;
 
+import cc.deadtornotor.binarytree.cli.CLI;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -9,9 +11,15 @@ import java.util.function.Consumer;
 public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
     TreeNode<T> root;
     private boolean dirty = false;
+    private final CLI cli;
+
+    public BinaryTree(CLI cli) {
+        this.cli = cli;
+        root = null;
+    }
 
     public BinaryTree() {
-        root = null;
+        this(new CLI());
     }
 
     public void insert(T value) {
@@ -219,7 +227,7 @@ public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
             printTree(node.right, prefix + (isTail ? "│      " : "       "), false);
         }
 
-        System.out.println(prefix + (isTail ? "└───── " : "┌───── ") + node.value);
+        cli.println(prefix + (isTail ? "└───── " : "┌───── ") + node.value);
 
         if (node.left != null) {
             printTree(node.left, prefix + (isTail ? "       " : "│      "), true);

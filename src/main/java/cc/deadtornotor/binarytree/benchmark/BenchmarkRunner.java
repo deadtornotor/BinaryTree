@@ -5,15 +5,13 @@ import java.util.function.Supplier;
 
 public class BenchmarkRunner {
 
-    private static final int RUN_COUNT = 50;
-
-    public static Result runBenchmark(String name, Supplier<Benchmarkable> structureFactory, List<Integer> data) {
+    public static Result runBenchmark(String name, Supplier<Benchmarkable> structureFactory, List<Integer> data, int runCount) {
         long totalWarmupTime = 0;
         long totalInsertTime = 0;
         long totalSearchTime = 0;
         long totalTraverseTime = 0;
 
-        for (int i = 0; i < RUN_COUNT; i++) {
+        for (int i = 0; i < runCount; i++) {
             Benchmarkable structure = structureFactory.get();
 
             long start = System.nanoTime();
@@ -42,14 +40,11 @@ public class BenchmarkRunner {
             }
         }
 
-        Result averageResult = new Result(
-            totalWarmupTime / RUN_COUNT,
-            totalInsertTime / RUN_COUNT,
-            totalSearchTime / RUN_COUNT,
-            totalTraverseTime / RUN_COUNT
+        return new Result(
+            totalWarmupTime / runCount,
+            totalInsertTime / runCount,
+            totalSearchTime / runCount,
+            totalTraverseTime / runCount
         );
-
-        System.out.println(name + " (avg of " + RUN_COUNT + " runs) -> " + averageResult);
-        return averageResult;
     }
 }
