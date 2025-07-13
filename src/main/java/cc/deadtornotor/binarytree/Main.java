@@ -5,9 +5,10 @@ import java.util.Scanner;
 
 public class Main {
     static Scanner scanner = new Scanner(System.in);
-    static BinaryTree<Integer> tree = new BinaryTree<Integer>();
+    static BinaryTree<Integer> tree = new BinaryTree<>();
     static Random random = new Random();
-    static Menu menu = new Menu("Binary Tree Menu");
+    static CLI cli = new CLI(Color.WHITE);
+    static Menu menu = new Menu("Binary Tree Menu", cli);
     static boolean exit = false;
 
     private static final int MAX_VALUE = 500;
@@ -36,15 +37,14 @@ public class Main {
         while (true) {
             menu.print();
 
-            System.out.print(System.getProperty("user.name") + "@binarytree ~/ $ ");
             int choice = scanner.nextInt();
 
             if (!menu.run(choice)) {
-                System.out.println("Invalid choice.");
+                cli.error("Invalid choice.");
             }
-            
+
             if (exit) {
-                System.out.println("Exiting...");
+                cli.info("Exiting...");
                 break;
             }
         }
@@ -122,7 +122,7 @@ public class Main {
     }
 
     private static void summary() {
-        BinaryTree<Integer> tree = new BinaryTree<Integer>();
+        BinaryTree<Integer> tree = new BinaryTree<>();
         Random random = new Random();
         
         // Random node count

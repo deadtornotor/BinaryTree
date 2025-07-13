@@ -1,7 +1,5 @@
 package cc.deadtornotor.binarytree;
 
-import java.util.HashMap;
-
 class MenuItem implements Comparable<MenuItem>{
     public int index;
     public String name;
@@ -26,9 +24,16 @@ class MenuItem implements Comparable<MenuItem>{
 public class Menu {
     private final BinaryTree<MenuItem> menuTree = new BinaryTree<MenuItem>();
     private final String name;
+    private final CLI cli;
+
+    public Menu(String name, CLI cli) {
+        this.name = name;
+        this.cli = cli;
+    }
 
     public Menu(String name) {
         this.name = name;
+        this.cli = new CLI();
     }
 
     public boolean add(int index, String name, Runnable runnable) {
@@ -42,11 +47,18 @@ public class Menu {
     }
 
     public void print() {
-        System.out.println("<---- " + name + " ---->");
-        
+        // Colored example, adjust as you like
+
+        cli.borderedPrintln(name, Color.GREEN, null, Color.GREEN);
+
         menuTree.forEach((menuItem) -> {
-            System.out.println("[" + menuItem.index + "] " + menuItem.name);
+            cli.println("[" + menuItem.index + "] " + menuItem.name);
         });
+
+        cli.print(System.getProperty("user.name"), Color.ORANGE);
+        cli.print("@");
+        cli.print("binarytree ", Color.CYAN);
+        cli.rainbowPrint("~/ $ ");
     }
 
     public boolean run(int index) {
