@@ -26,10 +26,8 @@ public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
         root = delete(root, value);
     }
 
-    public void inOrder() {
-        inOrder(root);
-
-        System.out.println();
+    public void clear() {
+        root = null;
     }
 
     public boolean exists(T value) {
