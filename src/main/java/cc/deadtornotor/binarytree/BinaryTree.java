@@ -8,6 +8,7 @@ import java.util.function.Consumer;
 
 public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
     TreeNode<T> root;
+    private boolean dirty = false;
 
     public BinaryTree() {
         root = null;
@@ -45,10 +46,10 @@ public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
 
     public void balance() {
         List<T> sorted = new ArrayList<>();
-
         inOrder(root, sorted);
-
         root = buildBalancedNode(sorted, 0, sorted.size() - 1);
+
+        dirty = false;
     }
 
     public T minValue() {
@@ -161,6 +162,7 @@ public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
 
     private TreeNode<T> insert(TreeNode<T> node, T value) {
         if (node == null) {
+            dirty = true;
             return new TreeNode<T>(value);
         }
 
@@ -173,6 +175,22 @@ public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
         return node;
     }
 
+    public boolean isDirty() {
+        return dirty;
+    }
+
+    public void inOrder() {
+        inOrder(true);
+    }
+
+    public void inOrder(boolean print) {
+        inOrder(root, print);
+
+        if (print) {
+            System.out.println();
+        }
+    }
+
     private void inOrder(TreeNode<T> node, List<T> set) {
         if (node == null) {
             return;
@@ -183,14 +201,16 @@ public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
         inOrder(node.right, set);
     }
 
-    private void inOrder(TreeNode<T> node) {
+    private void inOrder(TreeNode<T> node, boolean print) {
         if (node == null) {
             return;
         }
 
-        inOrder(node.left);
-        System.out.print(node.value + " ");
-        inOrder(node.right);
+        inOrder(node.left, print);
+        if (print) {
+            System.out.print(node.value + " ");
+        }
+        inOrder(node.right, print);
     }
 
     private T get(TreeNode<T> node, T value) {

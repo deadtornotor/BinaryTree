@@ -31,7 +31,6 @@ public class Menu {
     private final CLI cli;
     private boolean loop = false;
     static Scanner sc = new Scanner(System.in);
-    private boolean dirty = false;
 
     public Menu(String name, CLI cli) {
         this.name = name;
@@ -51,7 +50,6 @@ public class Menu {
 
         MenuItem item = new MenuItem(index, name, runnable);
         menuTree.insert(item);
-        dirty = true;
         return true;
     }
 
@@ -59,9 +57,8 @@ public class Menu {
         loop = true;
 
         while (loop) {
-            if (dirty) {
+            if (menuTree.isDirty()) {
                 menuTree.balance();
-                dirty = false;
             }
 
             this.print();
