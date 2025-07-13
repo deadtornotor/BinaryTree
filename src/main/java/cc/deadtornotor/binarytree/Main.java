@@ -1,5 +1,9 @@
 package cc.deadtornotor.binarytree;
 
+import cc.deadtornotor.binarytree.cli.CLI;
+import cc.deadtornotor.binarytree.cli.Color;
+import cc.deadtornotor.binarytree.cli.Menu;
+
 import java.util.Random;
 import java.util.Scanner;
 

@@ -1,4 +1,6 @@
-package cc.deadtornotor.binarytree;
+package cc.deadtornotor.binarytree.cli;
+
+import cc.deadtornotor.binarytree.BinaryTree;
 
 import java.util.Scanner;
 

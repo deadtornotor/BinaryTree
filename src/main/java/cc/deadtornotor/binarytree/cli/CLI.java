@@ -1,4 +1,4 @@
-package cc.deadtornotor.binarytree;
+package cc.deadtornotor.binarytree.cli;
 
 import java.util.Random;
 

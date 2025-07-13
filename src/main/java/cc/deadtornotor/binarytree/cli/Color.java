@@ -1,4 +1,4 @@
-package cc.deadtornotor.binarytree;
+package cc.deadtornotor.binarytree.cli;
 
 public class Color {
     private static final String ESC = "\u001B[";
