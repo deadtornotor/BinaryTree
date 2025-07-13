@@ -65,7 +65,7 @@ public class Menu {
 
             int choice = sc.nextInt();
 
-            if (!this.run(choice)) {
+            if (!this.execute(choice)) {
                 cli.error("Invalid choice.");
             }
         }
@@ -92,7 +92,7 @@ public class Menu {
         cli.rainbowPrint("~/ $ ");
     }
 
-    public boolean run(int index) {
+    public boolean execute(int index) {
         MenuItem indexItem = new MenuItem(index);
 
         if (!menuTree.exists(indexItem)) {
