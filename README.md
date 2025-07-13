@@ -19,7 +19,7 @@ in order for it to be properly inserted and ordered
 Binary trees are good for a couple of this, namely:
 - Fast search, insertion, and deletion (`O(log n)` in a balanced tree)
 - Hierarchy representation
-- Sorting and traveral
+- Sorting and traversal
 
 Tho this is only for understanding the implementation of the underlying idea 
 
