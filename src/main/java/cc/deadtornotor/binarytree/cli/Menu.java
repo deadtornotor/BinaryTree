@@ -4,19 +4,18 @@ import cc.deadtornotor.binarytree.BinaryTree;
 
 import java.util.Scanner;
 
-class MenuItem implements Comparable<MenuItem>{
+class MenuItem implements Comparable<MenuItem> {
     public int index;
-    public String name;
     public Runnable runnable;
+    public MenuAction action;
 
     public MenuItem(int index) {
         this.index = index;
     }
 
-    public MenuItem(int index, String name, Runnable runnable) {
+    public MenuItem(int index, MenuAction action) {
         this.index = index;
-        this.name = name;
-        this.runnable = runnable;
+        this.action = action;
     }
 
     @Override
@@ -36,19 +35,19 @@ public class Menu {
         this.name = name;
         this.cli = cli;
 
-        add(0, "Exit", this::stop);
+        add(0, new MenuAction("Exit", this, "stop"));
     }
 
     public Menu(String name) {
         this(name, new CLI());
     }
 
-    public boolean add(int index, String name, Runnable runnable) {
+    public boolean add(int index, MenuAction action) {
         if (menuTree.exists((new MenuItem(index)))) {
             return false;
         }
 
-        MenuItem item = new MenuItem(index, name, runnable);
+        MenuItem item = new MenuItem(index, action);
         menuTree.insert(item);
         return true;
     }
@@ -66,7 +65,7 @@ public class Menu {
             int choice = sc.nextInt();
 
             if (!this.execute(choice)) {
-                cli.error("Invalid choice.");
+                cli.error("Invalid choice");
             }
         }
 
@@ -83,13 +82,10 @@ public class Menu {
         cli.borderedPrintln(name, Color.GREEN, null, Color.GREEN);
 
         menuTree.forEach((menuItem) -> {
-            cli.println("[" + menuItem.index + "] " + menuItem.name);
+            cli.println("[" + menuItem.index + "] " + menuItem.action.name());
         });
 
-        cli.print(System.getProperty("user.name"), Color.ORANGE);
-        cli.print("@");
-        cli.print("binarytree ", Color.CYAN);
-        cli.rainbowPrint("~/ $ ");
+        cli.printInputPrefix();
     }
 
     public boolean execute(int index) {
@@ -99,7 +95,7 @@ public class Menu {
             return false;
         }
 
-        menuTree.get(indexItem).runnable.run();
+        menuTree.get(indexItem).action.execute();
         return true;
     }
 }

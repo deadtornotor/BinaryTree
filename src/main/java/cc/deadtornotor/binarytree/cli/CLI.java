@@ -5,20 +5,33 @@ import java.util.Random;
 public class CLI {
     private final Color defaultColor;
     private final Color defaultBackgroundColor;
+    private final Runnable inputPrefixPrinter;
 
-    public CLI(Color defaultColor, Color defaultBackgroundColor) {
+    public CLI(Runnable inputPrefixPrinter, Color defaultColor, Color defaultBackgroundColor) {
         this.defaultColor = defaultColor;
         this.defaultBackgroundColor = defaultBackgroundColor;
+        this.inputPrefixPrinter = inputPrefixPrinter == null ? () -> {
+            this.print(System.getProperty("user.name"), Color.ORANGE);
+            this.print("@");
+            this.print("binarytree ", Color.CYAN);
+            this.rainbowPrint("~/ $ ");
+        } : inputPrefixPrinter;
     }
 
-    public CLI(Color defaultColor) {
-        this.defaultColor = defaultColor;
-        this.defaultBackgroundColor = null;
+    public CLI(Runnable inputPrefixPrinter, Color defaultColor) {
+        this(inputPrefixPrinter, defaultColor, null);
+    }
+
+    public CLI(Runnable inputPrefixPrinter) {
+        this(inputPrefixPrinter, null, null);
     }
 
     public CLI() {
-        this.defaultColor = null;
-        this.defaultBackgroundColor = null;
+        this(null, null, null);
+    }
+
+    public void printInputPrefix() {
+        inputPrefixPrinter.run();
     }
 
     public void println() {
