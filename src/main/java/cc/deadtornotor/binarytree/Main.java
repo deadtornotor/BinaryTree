@@ -26,12 +26,12 @@ public class Main {
         menu.add(5, "Balance tree", Main::balanceTree);
         menu.add(6, "Find min value", Main::minValue);
         menu.add(7, "Find max value", Main::maxValue);
-        menu.add(8, "Delete a value", Main::deleteValue);
+        menu.add(10, "Delete a value", Main::deleteValue);
         menu.add(9, "Get height", Main::getHeight);
-        menu.add(10, "Get depth of value", Main::getDepth);
+        menu.add(8, "Get depth of value", Main::getDepth);
         menu.add(11, "Count nodes", Main::countNodes);
-        menu.add(12, "Reset tree", Main::resetTree);
-        menu.add(13, "Function summary", Main::summary);
+        menu.add(13, "Reset tree", Main::resetTree);
+        menu.add(12, "Function summary", Main::summary);
 
         menu.loop();
     }
