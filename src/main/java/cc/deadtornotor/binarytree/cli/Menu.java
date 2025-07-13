@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 class MenuItem implements Comparable<MenuItem> {
     public int index;
-    public Runnable runnable;
     public MenuAction action;
 
     public MenuItem(int index) {
@@ -25,11 +24,10 @@ class MenuItem implements Comparable<MenuItem> {
 }
 
 public class Menu {
-    private final BinaryTree<MenuItem> menuTree = new BinaryTree<MenuItem>();
+    private final BinaryTree<MenuItem> menuTree = new BinaryTree<>();
     private final String name;
     private final CLI cli;
     private boolean loop = false;
-    static Scanner sc = new Scanner(System.in);
 
     public Menu(String name, CLI cli) {
         this.name = name;
@@ -76,8 +74,6 @@ public class Menu {
     }
 
     public void print() {
-        // Colored example, adjust as you like
-
         cli.println();
         cli.borderedPrintln(name, Color.GREEN, null, Color.GREEN);
 

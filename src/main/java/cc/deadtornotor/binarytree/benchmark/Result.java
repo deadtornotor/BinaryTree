@@ -44,10 +44,4 @@ public class Result {
     public double traverseInOrderTimeMs() {
         return traverseInOrderTimeNs / 1_000_000.0;
     }
-
-    @Override
-    public String toString() {
-        return String.format("Performance Metrics: [Insert: %.3fms, Warmup: %.3fms, Search: %.3fms, TraverseInOrder: %.3fms]",
-                insertTimeMs(), warmupTimeMs(), searchTimeMs(), traverseInOrderTimeMs());
-    }
 }

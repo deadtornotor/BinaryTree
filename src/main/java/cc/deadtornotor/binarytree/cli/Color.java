@@ -59,7 +59,12 @@ public class Color {
         return ESC + (isBackground ? "48" : "38") + ";5;" + colorIndex + "m";
     }
 
-    public String getCode() {
+    public String code() {
+        return code;
+    }
+
+    @Override
+    public String toString() {
         return code;
     }
 }

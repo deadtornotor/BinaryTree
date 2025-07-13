@@ -102,7 +102,7 @@ public class CLI {
             Random random = new Random();
 
             Color color = rainbowColors[random.nextInt(rainbowColors.length)];
-            output.append(color.getCode()).append(c);
+            output.append(color.toString()).append(c);
         }
 
         output.append(Color.RESET);
@@ -122,11 +122,11 @@ public class CLI {
         StringBuilder output = new StringBuilder();
 
         if (color != null) {
-            output.append(color.getCode());
+            output.append(color.toString());
         }
 
         if (backgroundColor != null) {
-            output.append(backgroundColor.getCode());
+            output.append(backgroundColor.toString());
         }
 
         output.append(message).append(Color.RESET);
