@@ -122,11 +122,11 @@ public class CLI {
         StringBuilder output = new StringBuilder();
 
         if (color != null) {
-            output.append(color.toString());
+            output.append(color);
         }
 
         if (backgroundColor != null) {
-            output.append(backgroundColor.toString());
+            output.append(backgroundColor);
         }
 
         output.append(message).append(Color.RESET);

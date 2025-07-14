@@ -2,7 +2,6 @@ package cc.deadtornotor.binarytree.cli;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class MenuAction {
     private final String name;
@@ -42,23 +41,18 @@ public class MenuAction {
         }
 
         if (askToContinue) {
-            cli.input(null, () -> {
-                cli.println("Press ENTER to continue");
-            });
+            cli.input(null, () -> cli.println("Press ENTER to continue"));
         }
     }
 
     private Object[] promptForArguments(MethodParameter[] parameters) {
         Object[] args = new Object[parameters.length];
-        Scanner sc = new Scanner(System.in);
 
         for (int i = 0; i < parameters.length; i++) {
             Class<?> type = parameters[i].type();
             String paramName = parameters[i].name();
 
-            args[i] = cli.input(type, () -> {
-                cli.println("Enter " + paramName + " (" + type.getSimpleName() + ")");
-            });
+            args[i] = cli.input(type, () -> cli.println("Enter " + paramName + " (" + type.getSimpleName() + ")"));
         }
 
         return args;
