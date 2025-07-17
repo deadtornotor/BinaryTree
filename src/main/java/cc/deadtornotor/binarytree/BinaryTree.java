@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 
 public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
     TreeNode<T> root = null;
-    private boolean dirty = false;
+    private boolean isUnbalanced  = false;
 
     public BinaryTree() {
     }
@@ -48,11 +48,11 @@ public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
         inOrder(root, sorted);
         root = buildBalancedNode(sorted, 0, sorted.size() - 1);
 
-        dirty = false;
+        isUnbalanced = false;
     }
 
-    public boolean isDirty() {
-        return dirty;
+    public boolean isUnbalanced() {
+        return isUnbalanced;
     }
 
     public T minValue() {
@@ -183,7 +183,7 @@ public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
 
     private TreeNode<T> insert(TreeNode<T> node, T value) {
         if (node == null) {
-            dirty = true;
+            isUnbalanced = true;
             return new TreeNode<T>(value);
         }
 

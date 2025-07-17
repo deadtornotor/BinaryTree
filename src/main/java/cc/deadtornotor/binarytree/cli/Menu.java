@@ -54,7 +54,7 @@ public class Menu {
         loop = true;
 
         while (loop) {
-            if (menuTree.isDirty()) {
+            if (menuTree.isUnbalanced()) {
                 menuTree.balance();
             }
 
