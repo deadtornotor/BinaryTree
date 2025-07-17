@@ -2,8 +2,6 @@ package cc.deadtornotor.binarytree.cli;
 
 import cc.deadtornotor.binarytree.BinaryTree;
 
-import java.util.Scanner;
-
 class MenuItem implements Comparable<MenuItem> {
     public int index;
     public MenuAction action;
