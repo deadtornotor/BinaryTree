@@ -4,32 +4,37 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class CLI {
-    private final Color defaultColor;
-    private final Color defaultBackgroundColor;
-    private final Runnable inputPrefixPrinter;
+    private Color defaultColor;
+    private Color defaultBackgroundColor;
+    private Runnable inputPrefixPrinter;
     private final Scanner sc = new Scanner(System.in);
+    private static final CLI INSTANCE = new CLI();
 
-    public CLI(Runnable inputPrefixPrinter, Color defaultColor, Color defaultBackgroundColor) {
-        this.defaultColor = defaultColor;
-        this.defaultBackgroundColor = defaultBackgroundColor;
-        this.inputPrefixPrinter = inputPrefixPrinter == null ? () -> {
+    public static CLI getInstance() {
+        return INSTANCE;
+    }
+
+    private CLI() {
+        this.defaultColor = null;
+        this.defaultBackgroundColor = null;
+        this.inputPrefixPrinter = () -> {
             this.print(System.getProperty("user.name"), Color.ORANGE);
             this.print("@");
             this.print("binarytree ", Color.CYAN);
             this.rainbowPrint("~/ $ ");
-        } : inputPrefixPrinter;
+        };
     }
 
-    public CLI(Runnable inputPrefixPrinter, Color defaultColor) {
-        this(inputPrefixPrinter, defaultColor, null);
+    public void setDefaultColor(Color defaultColor) {
+        this.defaultColor = defaultColor;
     }
 
-    public CLI(Runnable inputPrefixPrinter) {
-        this(inputPrefixPrinter, null, null);
+    public void setDefaultBackgroundColor(Color defaultBackgroundColor) {
+        this.defaultBackgroundColor = defaultBackgroundColor;
     }
 
-    public CLI() {
-        this(null, null, null);
+    public void setInputPrefixPrinter(Runnable inputPrefixPrinter) {
+        this.inputPrefixPrinter = inputPrefixPrinter;
     }
 
     public void printInputPrefix() {

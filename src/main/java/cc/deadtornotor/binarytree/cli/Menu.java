@@ -27,15 +27,11 @@ public class Menu {
     private final CLI cli;
     private boolean loop = false;
 
-    public Menu(String name, CLI cli) {
+    public Menu(String name) {
+        this.cli = CLI.getInstance();
         this.name = name;
-        this.cli = cli;
 
         add(0, new MenuAction("Exit", this, "stop", false));
-    }
-
-    public Menu(String name) {
-        this(name, new CLI());
     }
 
     public boolean add(int index, MenuAction action) {

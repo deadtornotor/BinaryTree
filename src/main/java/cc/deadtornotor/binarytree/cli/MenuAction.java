@@ -11,17 +11,13 @@ public class MenuAction {
     private final CLI cli;
     private final boolean askToContinue;
 
-    public MenuAction(CLI cli, String name, Object target, String methodName, boolean askToContinue, MethodParameter... methodParameters) {
+    public MenuAction(String name, Object target, String methodName, boolean askToContinue, MethodParameter... methodParameters) {
+        this.cli = CLI.getInstance();
         this.name = name;
         this.target = target;
         this.methodParameters = methodParameters;
         this.methodName = methodName;
-        this.cli = cli;
         this.askToContinue = askToContinue;
-    }
-
-    public MenuAction(String name, Object target, String methodName, boolean askToContinue, MethodParameter... methodParameters) {
-        this(new CLI(), name, target, methodName, askToContinue, methodParameters);
     }
 
     public String name() {

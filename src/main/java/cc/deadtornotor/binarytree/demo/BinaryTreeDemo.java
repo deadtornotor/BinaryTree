@@ -18,9 +18,9 @@ public class BinaryTreeDemo {
     private final Menu menu;
     private final BinaryTree<Integer> tree = new BinaryTree<>();
 
-    public BinaryTreeDemo(CLI cli) {
-        this.cli = cli;
-        this.menu = new Menu("Binary Tree Demo", cli);
+    public BinaryTreeDemo() {
+        this.cli = CLI.getInstance();
+        this.menu = new Menu("Binary Tree Demo");
 
         menu.add(1, new MenuAction(
                 "Insert random values",
@@ -74,10 +74,6 @@ public class BinaryTreeDemo {
                 new MethodParameter("Number of values", int.class),
                 new MethodParameter("Number of runs", int.class))
         );
-    }
-
-    public BinaryTreeDemo() {
-        this(new CLI());
     }
 
     public void run() {
