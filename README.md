@@ -42,8 +42,8 @@ It requires a Comparable T value which it uses to order the nodes
 | int height()         | Returns the distance of the root to the lowest node               |
 | int depth(T value)   | Returns the distance between the root and a specific value        |
 | int countNodes()     | Returns the number of nodes int the tree                          |
-| void forEach(Consumer\<? super T> action)     | Returns the number of nodes int the tree                          |
-| Iterator\<T> iterator()     | Returns the number of nodes int the tree                          |
+| void forEach(Consumer\<? super T> action)     | Adds a for each function for simple iteration in order                       |
+| Iterator\<T> iterator()     | Returns an iterator for the binary tree                          |
 
 
 This is only a small subset of what functions a binary tree can have.
