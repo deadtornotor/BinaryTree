@@ -9,17 +9,10 @@ import java.util.Stack;
 import java.util.function.Consumer;
 
 public class BinaryTree<T extends Comparable<T>> implements Iterable<T> {
-    TreeNode<T> root;
+    TreeNode<T> root = null;
     private boolean dirty = false;
-    private final CLI cli;
-
-    public BinaryTree(CLI cli) {
-        this.cli = cli;
-        root = null;
-    }
 
     public BinaryTree() {
-        this(new CLI());
     }
 
     public void insert(T value) {
